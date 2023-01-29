@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Messages</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrinkto fit=no">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery-3.6.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <style>
+        .row{
+            padding-top: 10%;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+<div class="col-12 col-sm-6 col-xs-6 col-md-6 col-lg-6 col-xl-6" >
+
+    <form style="border-style: solid;border-width:2px; border-color: greenyellow;width: 700px;; display: block; margin: auto;">
+        <div class="form-group">
+            <label style="padding-left: 42.5%; padding-top: 10px;" for="goodMessages">Good Messages</label>
+            <input style="text-align: center; margin-top: 30px; margin-bottom: 30px; align-items: center; width: 600px; margin-left: 55px;"
+             type="text" class="form-control" id="goodMessages" placeholder="Good Messages"> 
+        </div>
+    
+        <button onclick="addtogoodMessages();" style="margin-left:42.5% ; margin-bottom: 15px;" type="button" class="btn btn-success">Αποστολή</button>
+    
+        </form>
+
+        <h2 style="text-align: center; margin-top: 15px;">Good Messages</h2>
+        <ul style="display: block;border-style: solid;border-width: 2px;color: green;border-color: greenyellow;" id="gMessage"></ul>
+
+    </div>
+    <div class="col-12 col-sm-6 col-xs-6 col-md-6 col-lg-6 col-xl-6" >
+        <form style="border-style: solid;border-width:2px; border-color: red; width:700px; display: block; margin: auto;">
+            <div class="form-group">
+                <label style="padding-left: 42.5%; margin-top: 10px;" for="badMessages">Bad Messages</label>
+                <input style="text-align: center; margin-top: 30px; margin-bottom: 30px; align-items: center; width: 600px; margin-left: 50px;"
+                 type="text" class="form-control" id="badMessages" placeholder="Bad Messages"> 
+            </div>
+        
+            <button onclick="addtobadMessages();" style="margin-left:42.5% ;margin-bottom: 15px;" type="button" class="btn btn-danger">Αποστολή</button>
+            </form>
+            <h2 style="text-align: center; margin-top: 15px;">Bad Messages</h2>
+            <ul style="display: block; border-style: solid; border-width: 2px;border-color: red;color: orange;" id="bMessage"></ul>
+            
+    </div>
+    <div class="row">
+     <button style="display: block; margin: auto; width: 200px;" onclick="showHistory();" type="button" class="btn btn-info">Εμφάνισε τα μυνήματα</button>
+   
+    <script>
+        var goodMessages = [];
+        var badMessages = [];
+
+        function addtogoodMessages() {
+          var message = document.getElementById("goodMessages").value;
+          goodMessages.push(message)
+          
+        }
+
+        function addtobadMessages() {
+          var message = document.getElementById("badMessages").value;
+          badMessages.push(message)
+        }
+        function showHistory() {
+            var goodAnswer =document.getElementById("gMessage");
+            goodAnswer.innerHTML=" "
+            for(var i in goodMessages) 
+            {
+            goodAnswer.innerHTML += "<li>"+ goodMessages [i] +"</li>" ;
+          }
+        
+        
+            var badAnswer =document.getElementById("bMessage");
+            badAnswer.innerHTML=" "
+            for(var i in badMessages) 
+            {
+            badAnswer.innerHTML += "<li>"+ badMessages [i] +"</li>" ;
+          }
+        }
+        
+
+    </script>
+</body>
+</html>
