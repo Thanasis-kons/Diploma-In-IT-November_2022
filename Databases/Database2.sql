@@ -8,7 +8,7 @@ CREATE DATABASE database1;
 
 
 --Table creation
-CREATE TABLE students (
+CREATE TABLE undergraduate_students (
     id INT NOT NULL AUTO_INCREMENT,
     first_name VARCHAR(254),
     last_name VARCHAR(254),
@@ -19,8 +19,41 @@ CREATE TABLE students (
     username VARCHAR(100),
     user_password VARCHAR(20),
     department VARCHAR(20),
+    UNIQUE (email),
     PRIMARY KEY(id)
 );
+
+
+CREATE TABLE graduate_students (
+    id INT NOT NULL,
+    first_name VARCHAR(254),
+    last_name VARCHAR(254),
+    email VARCHAR(254),
+    phone VARCHAR(20),
+    street VARCHAR(50),
+    street_number VARCHAR(10),
+    username VARCHAR(100),
+    user_password VARCHAR(20),
+    department VARCHAR(20),
+    UNIQUE (email),
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE dropout_students (
+    id INT NOT NULL,
+    first_name VARCHAR(254),
+    last_name VARCHAR(254),
+    email VARCHAR(254),
+    phone VARCHAR(20),
+    street VARCHAR(50),
+    street_number VARCHAR(10),
+    username VARCHAR(100),
+    user_password VARCHAR(20),
+    department VARCHAR(20),
+    UNIQUE (email),
+    PRIMARY KEY(id)
+);
+
 
 CREATE TABLE lessons (
     id INT NOT NULL AUTO_INCREMENT,
@@ -38,8 +71,7 @@ CREATE TABLE students_lessons (
     last_attempt DATE,
     grade INT,
     PRIMARY KEY(id),
-    FOREIGN KEY (student_id) REFERENCES students(id),
-    FOREIGN KEY (lesson_id) REFERENCES lessons(id), 
+    FOREIGN KEY (lesson_id) REFERENCES lessons(id)
 );
 
 DROP TABLE students_lessons;
@@ -48,12 +80,10 @@ CREATE TABLE students_lessons (
     id INT NOT NULL AUTO_INCREMENT,
     student_id INT NOT NULL,
     lesson_id INT NOT NULL,
-    last_attempt DATE,
+    attempt_date DATE,
     grade INT,
     PRIMARY KEY(id),
-    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
-    FOREIGN KEY (lesson_id) REFERENCES lessons(id) ON DELETE CASCADE
-);
+    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE);
 
 INSERT INTO students (first_name) VALUE ('stathis')
 
@@ -68,7 +98,7 @@ INSERT INTO students_lessons (grade, lesson_id, student_id) VALUES (10, 1, 1);
 
 
 --Data input
-INSERT INTO students
+INSERT INTO undergraduate_students
 (email, first_name, last_name, department)
 VALUES
 ('stahism@gmail.com', 'stathis', 'matsaridis', 'IT'),
@@ -76,13 +106,22 @@ VALUES
 ('nikosg@gmail.com', 'nikos', 'georgiou', 'IT'),
 ('giorgosk@hotmail.com', 'giorgos', 'kottakis', 'Oikonimiko'),
 ('dimitrisp@datamail.com', 'dimitris', 'pappas', 'Nomiki'),
-('jim_kon@hotmail.com', 'dimitris', 'konstantinou'), 'Oikonomiko',
+('jim_kon@hotmail.com', 'dimitris', 'konstantinou' 'Oikonomiko'),
 ('dedos_george.com', 'giorgos', 'dedos', 'Nomiki');
 
 --Is email
 --First name not in email
 --Last name in email
 --Names that exist more than 1
+
+INSERT INTO graduate_students
+SELECT * 
+FROM undergraduate_students
+WHERE id = 1;
+
+DELETE 
+FROM undergraduate_students
+WHERE id = 1;
 
 INSERT INTO lessons
 (title, department, points, semester)
@@ -106,6 +145,19 @@ INSERT INTO students_lessons
 (student_id, lesson_id, grade)
 VALUES
 ()
+
+
+
+--Joins
+
+SELECT S.first_name, S.last_name, SL.grade
+FROM students S
+    INNER JOIN students_lessons SL
+    ON SL.student_id = S.id;
+
+
+--Max attempt per student
+--Max attempt per student/lesson
 
 
 
