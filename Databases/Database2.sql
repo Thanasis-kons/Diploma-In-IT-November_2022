@@ -3,7 +3,7 @@
 
 
 --Db creation
-CREATE DATABASE database1;
+CREATE DATABASE database2;
 
 
 
@@ -64,6 +64,7 @@ CREATE TABLE lessons (
     PRIMARY KEY(id)
 );
 
+
 CREATE TABLE students_lessons (
     id INT NOT NULL AUTO_INCREMENT,
     student_id INT NOT NULL,
@@ -83,17 +84,17 @@ CREATE TABLE students_lessons (
     attempt_date DATE,
     grade INT,
     PRIMARY KEY(id),
-    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE);
+    FOREIGN KEY (lesson_id) REFERENCES lessons(id) ON DELETE CASCADE);
 
-INSERT INTO students (first_name) VALUE ('stathis')
+INSERT INTO undergraduate_students (first_name) VALUE ('stathis');
 
-INSERT INTO lessons (title) value ('lesson1')
+INSERT INTO lessons (title) value ('lesson1');
 
-INSERT INTO students_lessons (grade, last_attempt, lesson_id, student_id) VALUES (10, '2023-02-14', 1, 1);
+INSERT INTO students_lessons (grade, attempt_date, lesson_id, student_id) VALUES (10, '2023-02-14', 1, 1);
 
-ALTER TABLE students_lessons MODIFY last_attempt TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE students_lessons MODIFY attempt_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 
-INSERT INTO students_lessons (grade, lesson_id, student_id) VALUES (10, 1, 1);
+INSERT INTO students_lessons (grade, lesson_id, student_id) VALUES (10, 2, 1);
 
 
 
@@ -106,22 +107,31 @@ VALUES
 ('nikosg@gmail.com', 'nikos', 'georgiou', 'IT'),
 ('giorgosk@hotmail.com', 'giorgos', 'kottakis', 'Oikonimiko'),
 ('dimitrisp@datamail.com', 'dimitris', 'pappas', 'Nomiki'),
-('jim_kon@hotmail.com', 'dimitris', 'konstantinou' 'Oikonomiko'),
+('jim_kon@hotmail.com', 'dimitris', 'konstantinou', 'Oikonomiko'),
 ('dedos_george.com', 'giorgos', 'dedos', 'Nomiki');
 
 --Is email
---First name not in email
---Last name in email
+--First name not in email Homework
+SELECT * 
+FROM students 
+WHERE LOCATE(first_name, email) = 0;
+
+--Last name in email Homework
+SELECT * 
+FROM students 
+WHERE LOCATE(last_name, email) > 0;
+
 --Names that exist more than 1
 
+--Insert with select from another db table
 INSERT INTO graduate_students
 SELECT * 
 FROM undergraduate_students
-WHERE id = 1;
+WHERE id = 2;
 
 DELETE 
 FROM undergraduate_students
-WHERE id = 1;
+WHERE id = 2;
 
 INSERT INTO lessons
 (title, department, points, semester)
@@ -136,9 +146,9 @@ VALUES
 ('Poiniko dikaio 2', 'Nomiki', 8, 4),
 ('Logistiki 2', 'Oikonomiko', 4, 3);
 
---Lessons per department
---Department with most lessons
---Department per lessons
+--Lessons per department 
+--Department with most lessons Homework
+--Department per lessons Homework
 
 
 INSERT INTO students_lessons
@@ -148,12 +158,64 @@ VALUES
 
 
 
---Joins
+                                            --Joins
 
+--Inner join (Επιλογη εγγραφων με κοινες τιμες κελιων στους συγκρινομενους πινακες)
+
+--Επιλογη προπτυχιακων φοιτητων που εχουν βαθμο σε τουλαχιστον 1 μαθημα και τους βαθμους στα μαθηματα αυτα
 SELECT S.first_name, S.last_name, SL.grade
-FROM students S
+FROM undergraduate_students S
     INNER JOIN students_lessons SL
     ON SL.student_id = S.id;
+
+--Επιλογη προπτυχιακων φοιτητων που εχουν βαθμο σε τουλαχιστον 1 μαθημα, τους τιτλους των 
+--μαθηματων και τους βαθμους στα μαθηματα αυτα
+SELECT US.first_name, US.last_name, L.title, SL.grade
+FROM undergraduate_students US
+
+	INNER JOIN students_lessons SL
+    ON SL.student_id = US.id
+    
+    INNER JOIN lessons L
+    ON L.id = SL.lesson_id;
+    
+
+--Left (Right) join (Επιλογη ολων των εγγραφων του πρωτου πινακα, αυτου στον οποιο αναφερεται το from, 
+--και των εγγραφων απο το συγκρινομενο πινακα με ιδιες τιμες κελιων. Οπου δεν υπαρχουν ιδιες τιμες κελιων, επιστρεφεται σαν τιμη το NULL)
+
+--Επιλογη λιστας ολων των προπτυχιακων φοιτητων, τα μαθηματα στα οποια εχουν βαθμο και το βαθμο αυτο, αλλιως NULL
+SELECT US.first_name, US.last_name, L.title, SL.grade 
+FROM undergraduate_students US 
+    LEFT JOIN students_lessons SL 
+    ON SL.student_id = US.id 
+    
+    LEFT JOIN lessons L 
+    ON L.id = SL.lesson_id;
+
+--Επιλογη λιστας ολων των προπτυχιακων φοιτητων οι οποιοι δεν εχουν βαθμο σε κανενα μαθημα
+SELECT US.first_name, US.last_name, US.id
+FROM undergraduate_students US
+	LEFT JOIN students_lessons SL
+    ON SL.student_id = US.id
+    
+WHERE SL.id is NULL;
+
+--Union (Ενωση). Επιλογη ολων των στοιχειων 2 πινακων
+
+--Επιλογη του συνολου των προπτυχιακων και αποφοιτησαντων φοιτητων
+SELECT * 
+FROM graduate_students gs
+	UNION
+SELECT * 
+FROM undergraduate_students US
+
+
+--Επιλογη του συνολου των προπτυχιακων και αποφοιτησαντων φοιτητων, με αυτοσχεδιο προσδιορισμο
+SELECT gs.first_name, gs.last_name, gs.id, 'Graduate' as status
+FROM graduate_students gs
+	UNION
+SELECT US.first_name, US.last_name, US.id, 'Undergraduate' as status
+FROM undergraduate_students US
 
 
 --Max attempt per student
