@@ -1,5 +1,5 @@
 <?php 
-require('ageGenerator.php'); 
+
 
 //                  Loops
 
@@ -14,8 +14,8 @@ require('ageGenerator.php');
 
 //     echo "i: $i" . "<br>";
 
-  //  echo "Age $i: $age" . "<br>";
-}
+//     //echo "Age $i: $age" . "<br>";
+// }
 
 
 // while loop
