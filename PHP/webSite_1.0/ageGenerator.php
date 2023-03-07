@@ -1,6 +1,6 @@
 <?php
 
-// $age = rand(0,30);
+ $age = rand(0,30);
 
 // function getRandomAgeBelow30()
 // {

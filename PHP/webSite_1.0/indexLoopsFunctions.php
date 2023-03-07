@@ -8,11 +8,11 @@ require('ageGenerator.php');
 
 //for loop
 
-// for($i = 0; $i< 3; $i++) {
-//     echo "i: $i" . "<br>";
+ for($i = 0; $i< 3; $i++) {
+    echo "i: $i" . "<br>";
 
-//     //echo "Age $i: $age" . "<br>";
-// }
+  //  echo "Age $i: $age" . "<br>";
+}
 
 
 //while loop
