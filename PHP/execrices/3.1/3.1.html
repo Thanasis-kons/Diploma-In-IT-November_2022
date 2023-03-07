@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Registration Form</title>
+    </head>
+
+    <body>
+        <form method="POST" action="server.php"></form>
+
+        <label>Name
+            <input type="text" name="Name" id="Name">
+        </label>
+
+        <label>Last Name
+            <input type="text" name="LastName" id="LastName">
+        </label>
+
+        <label>Email
+            <input type="email" name="Email" id="Email">
+        </label>
+
+        <label>Phone
+            <input type="text" name="Phone" id="Phone">
+        </label>
+
+        <button type="button" onclick="checkData();">Submit</button>
+
+        <script>
+
+            function checkData() {
+                var dataInput = {
+                                 'name':document.getElementById("Name").value,
+                                 'lastName':document.getElementById("LastName").value,
+                                 'email':document.getElementById("Email").value,
+                                 'phone':document.getElementById("Phone").value
+                                };
+
+                for(let field in dataInput) {
+                    var value = dataInput[field];
+
+                    if (value == "") {
+                        alert("No value provided for field: '" + field + "'");
+                    }
+
+                    if (field == 'phone' && value.length != 10) {
+                        alert("Phone length must be 10, it is: " + value.length);
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>

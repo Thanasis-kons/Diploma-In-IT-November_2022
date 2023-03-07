@@ -1,5 +1,6 @@
 <?php 
 // session_start();
+// header("Location: index1.php");
 
 // GET Method
 
@@ -16,14 +17,14 @@
 
 // POST Method
 
-// if($_SERVER['REQUEST_METHOD'] == 'POST') {
-//     $userName = $_POST['username'];
-//     $password = $_POST['password'];
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $userName = $_POST['username'];
+    $password = $_POST['password'];
 
-//     if(isset($userName)) {
-//         echo $userName;
-//     }
-// }
+    if(isset($userName)) {
+        echo $userName;
+    }
+}
 
 
 
@@ -40,21 +41,21 @@
 
 //SESSION
 
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $_SESSION['username'] = $_POST['username'];
-    $_SESSION['password'] = $_POST['password'];
+// if($_SERVER['REQUEST_METHOD'] == 'POST') {
+//     $_SESSION['username'] = $_POST['username'];
+//     $_SESSION['password'] = $_POST['password'];
 
-    var_dump($_SESSION);
+//     var_dump($_SESSION);
 
-    echo "<br>";
+//     echo "<br>";
 
-    // unset($_SESSION['password']);
-    // var_dump($_SESSION);
+//     // unset($_SESSION['password']);
+//     // var_dump($_SESSION);
 
-    // unset($_SESSION);
-    // var_dump($_SESSION);
+//     // unset($_SESSION);
+//     // var_dump($_SESSION);
 
-    //Check if username/ password have been provided, else show message
-}
+//     //Check if username/ password have been provided, else show message
+// }
 
 ?>

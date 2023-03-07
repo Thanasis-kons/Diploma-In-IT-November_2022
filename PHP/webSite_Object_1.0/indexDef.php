@@ -1,5 +1,5 @@
 <?php 
-require('ageGenerator.php'); 
+
 
 //                  Loops
 
