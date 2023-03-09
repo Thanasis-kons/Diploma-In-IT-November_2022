@@ -29,7 +29,6 @@ function selectFromDb($sql) {
 
     $conn   = defaultConnectToDatabase();
     $result = $conn->query($sql);
-
     $data   = [];
 
     if ($result->num_rows > 0) {
@@ -48,7 +47,6 @@ function selectFromDbSimple($table, $fieldsArray = ["*"]) {
     checkQuery($table);
 
     $conn   = defaultConnectToDatabase();
-
     $fields = implode(',', $fieldsArray);
 
     $sql = "SELECT {$fields}

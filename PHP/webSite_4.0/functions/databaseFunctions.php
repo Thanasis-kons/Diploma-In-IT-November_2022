@@ -4,7 +4,7 @@ function defaultConnectToDatabase() {
     $servername = "localhost";
     $username   = "root";
     $password   = "";
-    $dbname     = "database1";
+    $dbname     = "database2";
     
     $conn = new mysqli($servername, $username, $password, $dbname);
     
@@ -29,33 +29,19 @@ function checkTable($table) {
 }
 
 
-function selectFromDbSimple($table, $fieldsArray = ["*"], $action = "return") {
-    checkTable($table);
+function selectFromDbSimple($sql) {
+    checkQuery($sql);
 
     $conn   = defaultConnectToDatabase();
-    $fields = implode(',', $fieldsArray);
-
-    $sql = "SELECT {$fields}
-            FROM {$table}";
-
     $result = $conn->query($sql);
+    $data   = [];
 
-    $data = [];
+    // echo $sql . "<br>";
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $data[] = $row;
         }
-    }
-    
-    switch($action) {
-        case "print":
-            printResultsSimple($data, $sql);
-            break;
-        case "return":
-            break;
-        default:
-            echo "Wrong Database result action provided";
     }
 
     $conn->close();
@@ -63,10 +49,8 @@ function selectFromDbSimple($table, $fieldsArray = ["*"], $action = "return") {
     return $data;
 }
 
-function printResultsSimple($data, $sql) {
+function printResultsSimple($data) {
     if (empty($data)) {
-        echo "No results <br>" 
-        . "Query: $sql <br>";
     } else {
         foreach ($data as $user) {            
             foreach ($user as $field => $value) {
