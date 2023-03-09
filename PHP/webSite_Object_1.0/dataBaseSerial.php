@@ -7,6 +7,11 @@ $dbname     = "database2";
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+// echo "<pre>";
+// var_dump($conn);
+// echo "</pre>";
+// exit();
+
 // Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
@@ -14,7 +19,7 @@ if ($conn->connect_error) {
 
 // Queries
 $sql = "SELECT id, first_name, last_name
-        FROM students";
+        FROM users";
 
 $result = $conn->query($sql);
 
@@ -42,4 +47,5 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close();
+
 ?>

@@ -64,7 +64,7 @@ function selectFromDbSimple($table, $fieldsArray = ["*"]) {
         }
     }
         
-    printResults($data);
+    printResultsSimple($data);
 
     $conn->close();
 }
@@ -75,11 +75,10 @@ function printResults($data) {
     if (empty($data)) {
         echo "No results";
     } else {
-        foreach ($data as $student) {
-            // var_dump($student); exit();
-            $id        = $student["id"];
-            $firstName = $student["first_name"];
-            $lastName  = $student["last_name"];
+        foreach ($data as $user) {
+            $id        = $user["id"];
+            $firstName = $user["first_name"];
+            $lastName  = $user["last_name"];
         
             echo "id: $id - Name: $firstName $lastName <br>";
         }
@@ -91,8 +90,10 @@ function printResultsSimple($data) {
     if (empty($data)) {
         echo "No results";
     } else {
-        foreach ($data as $student) {
-            foreach ($student as $field => $value) {
+        foreach ($data as $user) {
+            // var_dump($user); exit();
+            
+            foreach ($user as $field => $value) {
                 echo "$field: $value ";
             }
 

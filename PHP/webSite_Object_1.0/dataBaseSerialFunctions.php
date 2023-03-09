@@ -1,13 +1,12 @@
 <?php
 require("functions/functions.php");
 
-$sql = "SELECT id, first_name, last_name
-        FROM students";
+// $sql = "SELECT id, first_name, last_name
+//         FROM users";
 
 // $sql = "";
 
-selectFromDb($sql);
+// selectFromDb($sql);
 
-// selectFromDbSimple('students', ['id', 'first_name', 'last_name']);
-
+selectFromDbSimple('users', ['first_name', 'last_name', 'email']);
 ?>

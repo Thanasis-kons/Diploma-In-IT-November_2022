@@ -7,11 +7,11 @@
 
 
 // Student object
-// $studentObject = new stdClass;
+// $studentObject            = new stdClass;
 // $studentObject->firstName = 'Stathis';
-// $studentObject->lastName = 'Matsaridis';
-// $studentObject->age = 30;
-// $studentObject->semester = 1;
+// $studentObject->lastName  = 'Matsaridis';
+// $studentObject->age       = 30;
+// $studentObject->semester  = 1;
 
 // var_dump($studentObject);
 
@@ -45,20 +45,20 @@
 
 
 // Use function to set object
-// function setStudent($firstName, $lastName, $age, $semester) {
-// $studentObject            = new stdClass;
-// $studentObject->firstName = $firstName;
-// $studentObject->lastName  = $lastName;
-// $studentObject->age       = $age;
-// $studentObject->semester  = $semester;
+function setStudent($firstName, $lastName, $age, $semester) {
+$studentObject            = new stdClass;
+$studentObject->firstName = $firstName;
+$studentObject->lastName  = $lastName;
+$studentObject->age       = $age;
+$studentObject->semester  = $semester;
 
-// return $studentObject;
-// }
+return $studentObject;
+}
 
-// $aNewStudentObject = setStudent('Stathis', 'Matsaridis', 30, 1);
+$aNewStudentObject = setStudent('Stathis', 'Matsaridis', 30, 1);
 
-// foreach($aNewStudentObject as $field => $value) {
-//     echo "Field: $field - Value:  $value <br>";
-// }
+foreach($aNewStudentObject as $field => $value) {
+    echo "Field: $field - Value:  $value <br>";
+}
 
 ?>
