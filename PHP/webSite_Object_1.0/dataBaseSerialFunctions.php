@@ -9,4 +9,5 @@ require("functions/functions.php");
 // selectFromDb($sql);
 
 selectFromDbSimple('users', ['first_name', 'last_name', 'email']);
+
 ?>

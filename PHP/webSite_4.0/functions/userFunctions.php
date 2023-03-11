@@ -4,16 +4,21 @@
 // None: 1
 // Active: 2
 
-function logoutUser()
+function logoutUser($ip)
 {
-    if(existsActiveUserSession()) {
-        session_destroy();
+    if(existsActiveUserSession() && existBannedIps()) {
+        // return session_destroy();
+        $_SESSION['bannedIps'] = array_diff($_SESSION['bannedIps'], [$ip]);
+
+        return !isUserIpBanned($ip);
     }
+
+    return false;
 }
 
-function redirectBannedUsers() 
+function redirectBannedUser() 
 {
-    if(isUserIpBanned()) {
+    if(isUserIpBanned(getUserIp())) {
         redirectTo("errorPage.php");
     }
 }
@@ -40,10 +45,10 @@ function existBannedIps()
     return isset($_SESSION['bannedIps']);
 }
 
-function isUserIpBanned() 
-{
+function isUserIpBanned($ip) 
+{    
     if(existsActiveUserSession() && existBannedIps()) {
-        return in_array(getUserIp(), $_SESSION['bannedIps']);
+        return in_array($ip, $_SESSION['bannedIps']);
     }
 
     return false;

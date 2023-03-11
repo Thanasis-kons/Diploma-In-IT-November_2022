@@ -4,13 +4,11 @@ require('functions/genericFunctions.php');
 require("CONSTANTS.php");
 
 startSession(); 
-// logoutUser();
-redirectBannedUsers();
-
+redirectBannedUser();
 
 ?>
 
-<form action="server.php" method="POST"> 
+<form action="loginServer.php" method="POST"> 
 
 
     <label>Username
