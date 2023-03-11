@@ -4,40 +4,34 @@ require('functions/genericFunctions.php');
 require('functions/databaseFunctions.php'); 
 require("CONSTANTS.php");
 
-startSession();
-redirectBannedUsers();
-
+// var_dump($_SERVER);exit();
 // echo "My ip: <br>" . $_SERVER['SERVER_ADDR']; exit();
-// var_dump($_SERVER);
-// var_dump($_SESSION); exit();
 
+startSession();
+// var_dump($_SESSION); exit();
+redirectBannedUser();
 
 if(isRequestMethodPost()) {
     $userName = $_POST['username'];
     $password = $_POST['password'];
 
-    // if(isset($userName)) {
-    //     echo $userName . "<br>";
-    // }
+    if(isset($userName) && isset($password)) {
+        $sql = "SELECT username, user_password
+                FROM users
+                WHERE username = '{$userName}' AND user_password = '{$password}'";
 
-    
-    // if(isset($password)) {
-    //     echo $password . "<br>";
-    // }
+        $data = selectFromDbSimple($sql);
 
-    $data = selectFromDbSimple('users', ['username', 'user_password'], "return");
+        if(!empty($data)) {
+            echo "Welcome user: $userName";
+        } else {
+            echo "User not found!";
+        }
 
-    // var_dump($data);exit();
-
-    foreach($data as $dbUserData) {
-        // var_dump($dbUserData); exit();
-
-        $dbUserName = $dbUserData['username'];
-        $dbPassword = $dbUserData['user_password'];
+        // var_dump($data);exit();
     }
-
 } else {
-    banUserIp("::1"); 
+    banUserIp(getUserIp()); 
     redirectTo("errorPage.php");
 }
 

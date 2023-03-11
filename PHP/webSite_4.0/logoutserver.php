@@ -1,26 +1,27 @@
 <?php 
 require('functions/userFunctions.php'); 
 require('functions/genericFunctions.php'); 
-require('functions/databaseFunctions.php'); 
-require("CONSTANTS.php");
 
 startSession();
-redirectBannedUsers();
-
-
 
 if(isRequestMethodPost()) {
+    $logoutOutcome = false;
+
     $ip = $_POST['ip'];
-  if (isset($ip))  {
-    logoutUser();
-    echo "successful logout";
-  } else{
-echo " failure";
-  }
+
+    if(isset($ip)) {
+        $logoutOutcome = logoutUser($ip);
+    }
+
+    echo $logoutOutcome ? "Logged out ip: '$ip'" : "Failed to logout ip: '$ip'";
+
     
-
-   
+} else {
+    redirectBannedUser();
+    banUserIp(getUserIp()); 
+    redirectTo("errorPage.php");
 }
-
-
 ?>
+
+<br> <br>
+<a href="../webSite_4.0">Main Page</a>
