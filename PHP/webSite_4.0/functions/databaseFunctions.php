@@ -62,4 +62,39 @@ function printResultsSimple($data) {
     }
 }
 
+
+function selectFromDbWhere($table, $fieldsArray = ["*"], $whereArray = ["1" => "1"], $print = true) {
+    checkTable($table);
+
+    $whereArray = 1;
+    // foreach($whereArray as $field => $value) {
+    //     $where = "$field = $value AND"
+    // }
+
+    $conn   = defaultConnectToDatabase();
+    $fields = implode(',', $fieldsArray);
+
+    $sql = "SELECT {$fields}
+            FROM {$table}
+            WHERE {$whereArray}";
+
+    $result = $conn->query($sql);
+
+    $data = [];
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+    }
+
+    if($print) {
+        printResultsSimple($data, $sql);
+    }
+
+    $conn->close();
+
+    return $data;
+}
+
 ?>
