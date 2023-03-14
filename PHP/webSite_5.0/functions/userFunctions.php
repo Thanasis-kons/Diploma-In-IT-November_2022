@@ -25,6 +25,12 @@ function banUserIp($ip)
             $_SESSION['bannedIps'] = [];
         }
         
+        if(!in_array($ip, $_SESSION['bannedIps'])) {
+            array_push($_SESSION['bannedIps'], $ip);
+            $_SESSION['Error_Message'] = "Access denied, you are banned!";
+        }
+
+
         array_push($_SESSION['bannedIps'], $ip);
         $_SESSION['Error_Message'] = "Access denied, you are banned!";
     }
