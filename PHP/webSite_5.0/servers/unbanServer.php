@@ -1,9 +1,9 @@
-<a href="../webSite_5.0">Main Page</a>
+<a href="../../webSite_5.0">Main Page</a>
 <br> <br>
 
 <?php 
-require('functions/userFunctions.php'); 
-require('functions/genericFunctions.php'); 
+require('../functions/userFunctions.php'); 
+require('../functions/genericFunctions.php'); 
 
 startSession();
 
@@ -22,6 +22,6 @@ if(isRequestMethodPost()) {
 } else {
     redirectBannedUser();
     banUserIp(getUserIp()); 
-    redirectTo("errorPage.php");
+    redirectTo("../errorPage.php");
 }
 ?>

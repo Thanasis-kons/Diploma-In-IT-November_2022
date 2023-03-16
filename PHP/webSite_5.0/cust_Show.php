@@ -7,7 +7,7 @@ startSession();
 redirectBannedUser();
 ?>
 
-<form action="showCustomerServer.php" method="POST"> 
+<form action="servers/showCustomerServer.php" method="POST"> 
 
 
     <label>Customer Name
