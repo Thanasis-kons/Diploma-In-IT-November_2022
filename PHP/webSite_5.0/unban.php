@@ -8,7 +8,7 @@ require('functions/genericFunctions.php');
 startSession(); 
 ?>
 
-<form action="unbanServer.php" method="POST"> 
+<form action="servers/unbanServer.php" method="POST"> 
 
     <label>Ip
         <input type="text" id="ip" name="ip" placeholder="Ip to whitelist">

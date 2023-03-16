@@ -11,7 +11,7 @@ showLoggedUser();
 
 ?>
 
-<form action="loginServer.php" method="POST"> 
+<form action="servers/loginServer.php" method="POST"> 
 
 
     <label>Username
