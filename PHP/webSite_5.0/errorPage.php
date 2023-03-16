@@ -1,7 +1,6 @@
 <?php
 require('functions/genericFunctions.php'); 
 require('functions/userFunctions.php'); 
-require("CONSTANTS.php");
 
 startSession(); 
 

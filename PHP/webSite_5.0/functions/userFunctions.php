@@ -25,8 +25,10 @@ function banUserIp($ip)
             $_SESSION['bannedIps'] = [];
         }
         
-        array_push($_SESSION['bannedIps'], $ip);
-        $_SESSION['Error_Message'] = "Access denied, you are banned!";
+        if(!in_array($ip, $_SESSION['bannedIps'])) {
+            array_push($_SESSION['bannedIps'], $ip);
+            $_SESSION['Error_Message'] = "Access denied, you are banned!";
+        }
     }
 }
 
@@ -81,8 +83,14 @@ function showLoggedUser()
 
 function logUserIn($userName, $userRole)
 {
-    $_SESSION['loggedUserName'] = $userName;
-    $_SESSION['loggedUserRole'] = $userRole;
+    if(!existsLoggedUser()) {
+        $_SESSION['loggedUserName'] = $userName;
+        $_SESSION['loggedUserRole'] = $userRole;
+
+        return true;
+    }
+
+    return false;    
 }
 
 function logUserOut()
