@@ -15,7 +15,7 @@ require('ageGenerator.php');
 //     echo "i: $i" . "<br>";
 
   //  echo "Age $i: $age" . "<br>";
-}
+
 
 
 // while loop
